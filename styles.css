@@ -61,7 +61,8 @@
   box-shadow: 0 14px 28px rgb(0 0 0 / 0.5);
 }
 
-.dark-mode .theme-toggle img {
+.dark-mode .theme-toggle img,
+.dark-mode #email {
   filter: invert(1);
 }
 
@@ -695,6 +696,7 @@ body.lightbox-open {
   margin: 0;
 
   overflow: hidden;
+  background-color: var(--card);
 }
 
 .preview-box video,
@@ -710,7 +712,11 @@ body.lightbox-open {
 
 .preview-box video {
   pointer-events: none;
-  /* clicks go to the link */
+}
+
+.preview-frame,
+.banner-modal-frame {
+  color-scheme: light;
 }
 
 .preview-frame {
@@ -771,6 +777,8 @@ body.lightbox-open {
   margin: 0;
 
   border: 0;
+  border-radius: 0.5rem;
+  background-color: var(--card);
 }
 
 .banner-modal:has(.banner-modal-video-wrap:not([hidden])),
