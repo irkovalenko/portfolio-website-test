@@ -696,7 +696,7 @@ body.lightbox-open {
   margin: 0;
 
   overflow: hidden;
-  background-color: var(--card);
+  background-color: var(--background);
 }
 
 .preview-box video,
@@ -778,7 +778,7 @@ body.lightbox-open {
 
   border: 0;
   border-radius: 0.5rem;
-  background-color: var(--card);
+  background-color: var(--background);
 }
 
 .banner-modal:has(.banner-modal-video-wrap:not([hidden])),
