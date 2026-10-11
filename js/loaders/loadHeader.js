@@ -76,8 +76,6 @@ function scrollToId(id, behavior = "instant") {
 }
 
 if (onHomePage) {
-  // 1) Arriving from another page with #hash: align, and keep re-aligning
-  //    while images/JS content change the layout
   if (location.hash) {
     history.scrollRestoration = "manual";
     const id = decodeURIComponent(location.hash.slice(1));
@@ -95,7 +93,6 @@ if (onHomePage) {
     );
   }
 
-  // 2) Clicking nav links while already on the home page: scroll, don't reload
   links.forEach((a) => {
     a.addEventListener("click", (e) => {
       const url = new URL(a.href);
@@ -111,3 +108,37 @@ if (onHomePage) {
     });
   });
 }
+
+const root = document.documentElement;
+const darkModeButton = document.querySelector(".theme-toggle");
+const icon = darkModeButton.querySelector("img");
+
+const ICONS = {
+  light: "../../resources/moon.png",
+  dark: "../../resources/sun.png",
+};
+
+function applyTheme(isDark) {
+  root.classList.toggle("dark-mode", isDark);
+  darkModeButton.setAttribute("aria-pressed", String(isDark));
+  darkModeButton.setAttribute(
+    "aria-label",
+    isDark ? "Light mode" : "Dark mode",
+  );
+  icon.src = isDark ? ICONS.dark : ICONS.light;
+  icon.alt = "";
+  try {
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  } catch {}
+}
+
+let saved = null;
+try {
+  saved = localStorage.getItem("theme");
+} catch {}
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+applyTheme(saved ? saved === "dark" : prefersDark);
+
+darkModeButton.addEventListener("click", () => {
+  applyTheme(!root.classList.contains("dark-mode"));
+});
