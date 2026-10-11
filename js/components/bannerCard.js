@@ -1,4 +1,4 @@
-const pagesUrl = new URL("../../pages/", import.meta.url);
+const pagesUrl = new URL("../projectContent/banners/htmls/", import.meta.url);
 
 export function createBannerCard(banner) {
   const href = new URL(banner.file, pagesUrl).href;
