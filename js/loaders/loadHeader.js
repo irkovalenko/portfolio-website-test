@@ -114,8 +114,8 @@ const darkModeButton = document.querySelector(".theme-toggle");
 const icon = darkModeButton.querySelector("img");
 
 const ICONS = {
-  light: "../../resources/moon.png",
-  dark: "../../resources/sun.png",
+  light: "resources/moon.png",
+  dark: "resources/sun.png",
 };
 
 function applyTheme(isDark) {
