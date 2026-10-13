@@ -11,7 +11,7 @@ export function renderAnimation(container) {
 
   container.innerHTML = `
     <figure class="video-feature">
-      <video src="${src}" title="${item.title}" controls autoplay muted loop playsinline preload="auto"></video>
+      <video src="${src}" title="${item.title}"autoplay muted loop playsinline preload="auto"></video>
     </figure>
   `;
 }
