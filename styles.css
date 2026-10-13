@@ -68,6 +68,11 @@
   filter: invert(1);
 }
 
+.dark-mode .hero-star,
+.dark-mode .hero-star-left {
+  content: url("resources/starDark.svg");
+}
+
 /* ==========================================================================
 
    Base
@@ -353,6 +358,7 @@ header {
 }
 
 .hero h1 .line-centered {
+  position: relative;
   color: var(--muted-foreground);
 }
 
@@ -367,16 +373,34 @@ header {
   display: inline-block;
 }
 
-.hero-star {
+.hero-star,
+.hero-star-left {
   position: absolute;
-  width: 0.75em;
-  height: 0.75em;
+  width: 0.7em;
+  height: 0.7em;
+  object-fit: contain;
+  pointer-events: none;
+  animation: star-appear 60s ease forwards;
+}
+
+.hero-star-left {
+  left: 0;
+  top: 50%;
+  transform: translate(-70%, -120%);
+  animation-delay: 10s;
+}
+
+.hero-star {
   left: 50%;
   top: 0;
   transform: translate(20%, -50%);
+  animation-delay: 15s;
+}
 
-  object-fit: contain;
-  pointer-events: none;
+@keyframes star-appear {
+  to {
+    opacity: 1;
+  }
 }
 
 /* ==========================================================================
