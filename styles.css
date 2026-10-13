@@ -37,6 +37,11 @@
   --muted-foreground: oklch(0.72 0.015 270);
   --border: oklch(0.34 0.015 270);
   --ink: oklch(0.95 0.008 90);
+  --dots: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.18) 1px,
+    transparent 1px
+  );
 }
 
 .dark-mode .profile-card,
@@ -47,21 +52,11 @@
   --ink: oklch(0.15 0.015 270);
 }
 
-.dark-mode .raster-dots {
-  background-image: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.456) 1px,
-    transparent 1px
-  );
-}
-
-.dark-mode .footer,
-.dark-mode .nav-container {
-  background-image: radial-gradient(
-    circle,
-    rgb(255 255 255 / 0.06) 1px,
-    transparent 1px
-  );
+.nav-container,
+.footer {
+  background-image: var(--dots);
+  background-size: 12px 12px;
+  background-position: center;
 }
 
 .dark-mode .card:hover {
@@ -365,6 +360,23 @@ header {
   margin-left: 0;
 
   color: var(--pink);
+}
+
+.letter-c {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-star {
+  position: absolute;
+  width: 0.75em;
+  height: 0.75em;
+  left: 50%;
+  top: 0;
+  transform: translate(20%, -50%);
+
+  object-fit: contain;
+  pointer-events: none;
 }
 
 /* ==========================================================================
@@ -1454,11 +1466,14 @@ body.lightbox-open {
 
 .showreel-preview {
   position: absolute;
-  inset: 1.25rem;
-  width: calc(100% - 2.5rem);
-  height: calc(100% - 2.5rem);
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 2.5rem);
+  max-height: calc(100% - 2.5rem);
+  border-radius: 15px;
   object-fit: contain;
-  object-position: center;
   pointer-events: none;
   transition: opacity 0.3s ease;
   z-index: -1;
@@ -1474,7 +1489,7 @@ body.lightbox-open {
 .raster-dots-lighter {
   background-image: radial-gradient(
     circle,
-    rgba(126, 119, 119, 0.65) 1px,
+    rgba(174, 164, 164, 0.65) 1px,
     transparent 1px
   );
   background-size: 12px 12px;
