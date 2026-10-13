@@ -64,7 +64,7 @@
 }
 
 .dark-mode .theme-toggle img,
-.dark-mode .footer-link {
+.dark-mode .footer-link img {
   filter: invert(1);
 }
 
