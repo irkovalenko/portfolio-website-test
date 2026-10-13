@@ -3,7 +3,7 @@ dialog.className = "banner-modal";
 dialog.innerHTML = `
   <iframe class="banner-modal-frame" hidden></iframe>
 <div class="banner-modal-video-wrap" hidden>
-    <video class="banner-modal-video" playsinline></video>
+    <video class="banner-modal-video" playsinline loop></video>
     <button
   class="banner-modal-mute"
   type="button"
