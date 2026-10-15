@@ -1,9 +1,12 @@
+import { siteRoot } from "../helpers/paths.js";
+
 export function createToolGrid(tool) {
-  const imagePath = `resources/tools/${tool.image}`;
+  const src = new URL(`resources/tools/${tool.image}`, siteRoot).href;
+
   return `
     <div class="tool" title="${tool.name}">
       <div class="tool-button">
-        <img src="${imagePath}" alt="${tool.name}" />
+        <img src="${src}" alt="${tool.name}" />
       </div>
       <span class="tool-tip">${tool.name}</span>
     </div>

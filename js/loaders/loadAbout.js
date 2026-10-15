@@ -5,7 +5,7 @@ export async function loadAbout() {
 
   if (!container) return;
 
-  const response = await fetch("./components/about.html");
+  const response = await fetch("../../components/about.html");
   container.innerHTML = await response.text();
 
   const jobsList = container.querySelector("#jobs-list");
