@@ -9,7 +9,7 @@ export const projects = [
     year: "2025—2026",
     description:
       "I created a range of animated advertising banners for online campaigns. Most were interactive Rich Media experiences, combining motion, responsive layouts and direct viewer interaction.",
-    image: "resources/projects_placeholders/advertisement.jpg",
+    image: "../resources/projects_placeholders/advertisement.jpg",
     imageWidth: 320,
     imageHeight: 480,
     role: "Design · Animation · Rich Media",
@@ -24,7 +24,7 @@ export const projects = [
     year: "2025",
     description:
       "I designed a custom WeTransfer landing page for 4AM, starting by reimagining the company’s logo to establish a refreshed visual direction. The final design was then animated in After Effects.",
-    image: "resources/projects_placeholders/animation.jpg",
+    image: "../resources/projects_placeholders/animation.jpg",
     imageWidth: 1650,
     imageHeight: 768,
     role: "Visual identity · Motion",
@@ -39,7 +39,7 @@ export const projects = [
     year: "2024",
     description:
       "Selected interface work balancing clear information architecture, modular design systems and expressive visual details across responsive websites.",
-    image: "resources/projects_placeholders/web.jpg",
+    image: "../resources/projects_placeholders/web.jpg",
     imageWidth: 1280,
     imageHeight: 1800,
     role: "UI design · Visual identity",
@@ -55,7 +55,7 @@ export const projects = [
     year: "2026",
     description:
       "A film project presented through FilmFreeway, bringing together visual storytelling, animation and independently produced moving image.",
-    image: "resources/projects_placeholders/contests.jpg",
+    image: "../resources/projects_placeholders/contests.jpg",
     imageWidth: 1650,
     imageHeight: 768,
     role: "Direction · Animation",
@@ -71,7 +71,7 @@ export const projects = [
     year: "2026",
     description:
       "Inspired by Japanese animation, I analyze and reconstruct anime scenes or draw fan art and make it move. These studies are a space to understand timing, composition and character performance through practice.",
-    image: "resources/projects_placeholders/hobby.jpg",
+    image: "../resources/projects_placeholders/hobby.jpg",
     imageWidth: 1024,
     imageHeight: 1536,
     role: "Illustration · Animation",
