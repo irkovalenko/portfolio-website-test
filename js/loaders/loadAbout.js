@@ -1,3 +1,4 @@
+import { siteRoot } from "../helpers/paths.js";
 import { loadJobs } from "./loadJobs.js";
 
 export async function loadAbout() {
@@ -5,7 +6,13 @@ export async function loadAbout() {
 
   if (!container) return;
 
-  const response = await fetch("../../components/about.html");
+  const url = new URL("components/about.html", siteRoot);
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to load about: ${response.status}`);
+  }
+
   container.innerHTML = await response.text();
 
   const jobsList = container.querySelector("#jobs-list");
