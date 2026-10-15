@@ -1,6 +1,6 @@
-import { siteRoot } from "../helpers/paths.js";
+import { siteRoot } from "../../helpers/paths.js";
 import { createLightBoxGallery } from "../../components/galleryLightBox.js";
-import { initImageModal } from "../../components/imageModal.js";
+import { initImageModal } from "../../../components/imageModal.js";
 
 export function renderWeb(slot) {
   const imageBase = new URL("js/projectContent/web/", siteRoot);
