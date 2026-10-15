@@ -1,10 +1,17 @@
+import { siteRoot } from "../helpers/paths.js";
 import { loadTools } from "./loadTools.js";
 
 export async function loadCardsSection() {
   const container = document.querySelector("#cards-section");
   if (!container) return;
 
-  const response = await fetch("../../components/cards_section.html");
+  const url = new URL("components/cards_section.html", siteRoot);
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to load cards section: ${response.status}`);
+  }
+
   container.innerHTML = await response.text();
 
   loadTools();
