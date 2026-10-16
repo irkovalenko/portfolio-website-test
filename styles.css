@@ -409,6 +409,33 @@ header {
 
    ========================================================================== */
 
+.banner-section {
+  margin-inline: calc(-1 * var(--page-pad));
+  padding: 3rem var(--page-pad);
+  padding-bottom: 3rem;
+  color: white;
+  margin-bottom: 3rem;
+}
+
+.banner-section--purple {
+  background-color: var(--violet);
+}
+
+.banner-section--green {
+  background-color: var(--lime);
+}
+
+.banner-section-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 0.95;
+  text-transform: none;
+}
+
+.banner-section .gallery {
+  margin: 2rem 0 0;
+}
+
 .gallery {
   list-style: none;
 
