@@ -1,5 +1,3 @@
-//	HYPE.documents["CH_Janki_rich_live_HR_320x480_adaptive_MRAID__"]
-
 (function () {
   (function m() {
     function k(a, b, c, d) {
@@ -32,12 +30,7 @@
           a++
         ) {
           var d = c[a].src,
-            b =
-              null != d
-                ? d.indexOf(
-                    "/script.js",
-                  )
-                : -1;
+            b = null != d ? d.indexOf("/script.js") : -1;
           if (-1 != b) {
             l = d.substr(0, b);
             break;

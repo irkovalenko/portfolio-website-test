@@ -30,12 +30,7 @@
           a++
         ) {
           var d = c[a].src,
-            b =
-              null != d
-                ? d.indexOf(
-                    "/script.js",
-                  )
-                : -1;
+            b = null != d ? d.indexOf("/script.js") : -1;
           if (-1 != b) {
             l = d.substr(0, b);
             break;
@@ -87,21 +82,6 @@
         }
       if (!1 == b) return;
     }
-    b = [];
-    b = [
-      {
-        name: "gotomap",
-        source:
-          "function(hypeDocument, element, event) {\t\twindow.gotomap();\t\n\t\n}",
-        identifier: "118",
-      },
-      {
-        name: "action1",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action1();\n}",
-        identifier: "904",
-      },
-    ];
     e = {};
     h = {};
     for (a = 0; a < b.length; a++)

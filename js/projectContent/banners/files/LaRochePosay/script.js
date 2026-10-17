@@ -95,12 +95,6 @@
           "function(hypeDocument, element, event) {\t\n\tvar blendmodes = ['color', 'color-burn', 'color-dodge', 'darken', 'difference', 'exclusion', 'hard-light', 'hue', 'lighten', 'luminosity', 'multiply', 'normal', 'overlay', 'saturation', 'screen', 'soft-light'];\n\twhile (blendmodes.length) {\n\t\tvar blendmode = blendmodes.pop();\n\t\tvar nodes = element.querySelectorAll('.blendmode-'+blendmode);\n\t\tfor (i = 0; i < nodes.length; ++i) {\n\t\t\tnodes[i].parentNode.style.mixBlendMode = blendmode;\n\t\t}\n\t}\n}",
         identifier: "7",
       },
-      {
-        name: "gotosite",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.gotosite();\n\n}",
-        identifier: "39",
-      },
     ];
     e = {};
     h = {};

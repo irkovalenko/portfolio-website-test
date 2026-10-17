@@ -32,12 +32,7 @@
           a++
         ) {
           var d = c[a].src,
-            b =
-              null != d
-                ? d.indexOf(
-                    "/script.js",
-                  )
-                : -1;
+            b = null != d ? d.indexOf("/script.js") : -1;
           if (-1 != b) {
             l = d.substr(0, b);
             break;
@@ -89,43 +84,8 @@
         }
       if (!1 == b) return;
     }
-    b = [];
-    b = [
-      {
-        name: "gotosite",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.gotosite();\n}",
-        identifier: "9",
-      },
-      {
-        name: "gotomap",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.gotomap();\n\n}",
-        identifier: "747",
-      },
-      {
-        name: "action1",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action1(); \n}",
-        identifier: "749",
-      },
-      {
-        name: "action2",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action2(); \n\t\n}",
-        identifier: "750",
-      },
-    ];
     e = {};
     h = {};
-    for (a = 0; a < b.length; a++)
-      try {
-        ((h[b[a].identifier] = b[a].name),
-          (e[b[a].name] = eval("(function(){return " + b[a].source + "})();")));
-      } catch (n) {
-        (window.console && window.console.log(n),
-          (e[b[a].name] = function () {}));
-      }
     c = new window["HYPE_772" + c](
       f,
       g,
@@ -469,7 +429,6 @@
             "991",
             "1003",
             "999",
-            "975",
             "1008",
             "977",
             "976",
@@ -500,7 +459,6 @@
             "979",
             "978",
             "982",
-            "974",
             "984",
             "983",
             "1007",
@@ -930,39 +888,6 @@
               cR: 1,
               cV: [],
             },
-            974: {
-              c: 318,
-              bS: 287,
-              d: 56,
-              I: "Solid",
-              e: 0,
-              J: "Solid",
-              K: "Solid",
-              g: "#00FDFF",
-              L: "Solid",
-              aP: "pointer",
-              M: 1,
-              N: 1,
-              A: "#D8DDE4",
-              j: "absolute",
-              x: "visible",
-              B: "#D8DDE4",
-              P: 1,
-              O: 1,
-              C: "#D8DDE4",
-              z: 42,
-              dB: "button",
-              D: "#D8DDE4",
-              aA: {
-                a: [
-                  { p: 4, h: "750" },
-                  { p: 4, h: "747" },
-                ],
-              },
-              k: "div",
-              a: 0,
-              b: 422,
-            },
             993: {
               h: "785",
               p: "no-repeat",
@@ -1064,39 +989,6 @@
               cQ: 1,
               c: 735,
               cR: 1,
-            },
-            975: {
-              c: 318,
-              bS: 319,
-              d: 478,
-              I: "Solid",
-              e: 0,
-              J: "Solid",
-              K: "Solid",
-              g: "#0433FF",
-              L: "Solid",
-              aP: "pointer",
-              M: 1,
-              N: 1,
-              A: "#D8DDE4",
-              j: "absolute",
-              x: "visible",
-              B: "#D8DDE4",
-              P: 1,
-              O: 1,
-              C: "#D8DDE4",
-              z: 41,
-              dB: "button",
-              D: "#D8DDE4",
-              aA: {
-                a: [
-                  { p: 4, h: "749" },
-                  { p: 4, h: "9" },
-                ],
-              },
-              k: "div",
-              a: 0,
-              b: 0,
             },
             994: {
               x: "visible",

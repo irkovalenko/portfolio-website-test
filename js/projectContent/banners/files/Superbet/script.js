@@ -30,12 +30,7 @@
           a++
         ) {
           var d = c[a].src,
-            b =
-              null != d
-                ? d.indexOf(
-                    "/script.js",
-                  )
-                : -1;
+            b = null != d ? d.indexOf("/script.js") : -1;
           if (-1 != b) {
             l = d.substr(0, b);
             break;
@@ -87,15 +82,6 @@
         }
       if (!1 == b) return;
     }
-    b = [];
-    b = [
-      {
-        name: "gotosite",
-        source:
-          "function(hypeDocument, element, event) {\t\n\t\twindow.gotosite();\t\n}",
-        identifier: "1189",
-      },
-    ];
     e = {};
     h = {};
     for (a = 0; a < b.length; a++)

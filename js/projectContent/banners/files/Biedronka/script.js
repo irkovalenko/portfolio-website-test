@@ -87,33 +87,6 @@
         }
       if (!1 == b) return;
     }
-    b = [];
-    b = [
-      {
-        name: "gotosite",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.gotosite();\n}",
-        identifier: "9",
-      },
-      {
-        name: "gotomap",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.gotomap();\n\n}",
-        identifier: "747",
-      },
-      {
-        name: "action1",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action1(); \n}",
-        identifier: "749",
-      },
-      {
-        name: "action2",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action2(); \n\t\n}",
-        identifier: "750",
-      },
-    ];
     e = {};
     h = {};
     for (a = 0; a < b.length; a++)
