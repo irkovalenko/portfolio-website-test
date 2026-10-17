@@ -2,7 +2,7 @@ import { createBannerCard } from "./bannerCard.js";
 
 const SECTIONS = [
   { key: "interactive", title: "Click &amp; interact", modifier: "purple" },
-  { key: "static", title: "Static", modifier: "green" },
+  { key: "static", title: "Gallery", modifier: "green" },
 ];
 
 function createSection({ title, modifier }, items) {
