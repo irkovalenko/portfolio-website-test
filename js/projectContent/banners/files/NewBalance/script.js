@@ -32,12 +32,7 @@
           a++
         ) {
           var d = c[a].src,
-            b =
-              null != d
-                ? d.indexOf(
-                    "/script.js",
-                  )
-                : -1;
+            b = null != d ? d.indexOf("/script.js") : -1;
           if (-1 != b) {
             l = d.substr(0, b);
             break;
@@ -94,7 +89,7 @@
       {
         name: "Click",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.click();\n\t\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.click === 'function') window.click();\n\t\n}",
         identifier: "65",
       },
       {
@@ -106,43 +101,43 @@
       {
         name: "sound",
         source:
-          'function(hypeDocument, element, event) {\t\n\tvar video = hypeDocument.getElementById("videom");\n\tvar krest = hypeDocument.getElementById("krestm");\n\tvar on = hypeDocument.getElementById("onm");\n\t\n\t\n\tif (video.muted) {\n\t\tvideo.muted = false;\n\t\tkrest.style.display = "none";\n\t\ton.style.display = "block";\n\t\tregisterUnMuteEvent();\n\t} else {\n\t\tvideo.muted = true;\n\t\tkrest.style.display = "block";\n\t\ton.style.display = "none";\n\t\tregisterMuteEvent();\n\t}\n\t\n\treturn false;\n\t\t\t\n}',
+          'function(hypeDocument, element, event) {\t\n\tvar video = hypeDocument.getElementById("videom");\n\tvar krest = hypeDocument.getElementById("krestm");\n\tvar on = hypeDocument.getElementById("onm");\n\t\n\t\n\tif (video.muted) {\n\t\tvideo.muted = false;\n\t\tkrest.style.display = "none";\n\t\ton.style.display = "block";\n\t\tif (typeof registerUnMuteEvent === "function") registerUnMuteEvent();\n\t} else {\n\t\tvideo.muted = true;\n\t\tkrest.style.display = "block";\n\t\ton.style.display = "none";\n\t\tif (typeof registerMuteEvent === "function") registerMuteEvent();\n\t}\n\t\n\treturn false;\n\t\t\t\n}',
         identifier: "76",
       },
       {
         name: "Click",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.click();\n\t\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.click === 'function') window.click();\n\t\n}",
         identifier: "202",
       },
       {
         name: "sound",
         source:
-          'function(hypeDocument, element, event) {\t\n\tvar video = hypeDocument.getElementById("videom");\n\tvar krest = hypeDocument.getElementById("krestm");\n\tvar on = hypeDocument.getElementById("onm");\n\t\n\t\n\tif (video.muted) {\n\t\tvideo.muted = false;\n\t\tkrest.style.display = "none";\n\t\ton.style.display = "block";\n\t\tregisterUnMuteEvent();\n\t} else {\n\t\tvideo.muted = true;\n\t\tkrest.style.display = "block";\n\t\ton.style.display = "none";\n\t\tregisterMuteEvent();\n\t}\n\t\n\treturn false;\n\t\t\t\n}',
+          'function(hypeDocument, element, event) {\t\n\tvar video = hypeDocument.getElementById("videom");\n\tvar krest = hypeDocument.getElementById("krestm");\n\tvar on = hypeDocument.getElementById("onm");\n\t\n\t\n\tif (video.muted) {\n\t\tvideo.muted = false;\n\t\tkrest.style.display = "none";\n\t\ton.style.display = "block";\n\t\tif (typeof registerUnMuteEvent === "function") registerUnMuteEvent();\n\t} else {\n\t\tvideo.muted = true;\n\t\tkrest.style.display = "block";\n\t\ton.style.display = "none";\n\t\tif (typeof registerMuteEvent === "function") registerMuteEvent();\n\t}\n\t\n\treturn false;\n\t\t\t\n}',
         identifier: "203",
       },
       {
         name: "action5",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action5();\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.action5 === 'function') window.action5();\n}",
         identifier: "376",
       },
       {
         name: "action6",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action6();\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.action6 === 'function') window.action6();\n}",
         identifier: "377",
       },
       {
         name: "action7",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action7();\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.action7 === 'function') window.action7();\n}",
         identifier: "378",
       },
       {
         name: "action8",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action8();\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.action8 === 'function') window.action8();\n}",
         identifier: "379",
       },
     ];

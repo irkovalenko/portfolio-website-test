@@ -94,19 +94,19 @@
       {
         name: "click",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.click();\t\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.click === 'function') window.click();\t\n}",
         identifier: "5",
       },
       {
         name: "event1",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.event1();\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.event1 === 'function') window.event1();\n}",
         identifier: "6",
       },
       {
         name: "event2",
         source:
-          "function(hypeDocument, element, event) {\t\n\twindow.event2();\n}",
+          "function(hypeDocument, element, event) {\t\n\tif (typeof window.event2 === 'function') window.event2();\n}",
         identifier: "7",
       },
     ];

@@ -82,37 +82,36 @@
         }
       if (!1 == b) return;
     }
-    b = [];
-    b = [
-      {
-        name: "gotosite",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.gotosite();\n}",
-        identifier: "9",
+    e = {
+      blendmodes: function (hypeDocument, element, event) {
+        var blendmodes = [
+          "color",
+          "color-burn",
+          "color-dodge",
+          "darken",
+          "difference",
+          "exclusion",
+          "hard-light",
+          "hue",
+          "lighten",
+          "luminosity",
+          "multiply",
+          "normal",
+          "overlay",
+          "saturation",
+          "screen",
+          "soft-light",
+        ];
+        while (blendmodes.length) {
+          var blendmode = blendmodes.pop();
+          var nodes = element.querySelectorAll(".blendmode-" + blendmode);
+          for (var i = 0; i < nodes.length; ++i) {
+            nodes[i].parentNode.style.mixBlendMode = blendmode;
+          }
+        }
       },
-      {
-        name: "blendmodes",
-        source:
-          "function(hypeDocument, element, event) {\t\n\t\t\n\tvar blendmodes = ['color', 'color-burn', 'color-dodge', 'darken', 'difference', 'exclusion', 'hard-light', 'hue', 'lighten', 'luminosity', 'multiply', 'normal', 'overlay', 'saturation', 'screen', 'soft-light'];\n\twhile (blendmodes.length) {\n\t\tvar blendmode = blendmodes.pop();\n\t\tvar nodes = element.querySelectorAll('.blendmode-'+blendmode);\n\t\tfor (i = 0; i < nodes.length; ++i) {\n\t\t\tnodes[i].parentNode.style.mixBlendMode = blendmode;\n\t\t}\n\t}\n\t\t\n}",
-        identifier: "225",
-      },
-      {
-        name: "action1",
-        source:
-          "function(hypeDocument, element, event) {\t\n\twindow.action1();\n}",
-        identifier: "279",
-      },
-    ];
-    e = {};
-    h = {};
-    for (a = 0; a < b.length; a++)
-      try {
-        ((h[b[a].identifier] = b[a].name),
-          (e[b[a].name] = eval("(function(){return " + b[a].source + "})();")));
-      } catch (n) {
-        (window.console && window.console.log(n),
-          (e[b[a].name] = function () {}));
-      }
+    };
+    h = { 225: "blendmodes" };
     c = new window["HYPE_778" + c](
       f,
       g,
