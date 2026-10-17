@@ -2,26 +2,36 @@ const dialog = document.createElement("dialog");
 dialog.className = "banner-modal";
 dialog.innerHTML = `
   <iframe class="banner-modal-frame" hidden></iframe>
-<div class="banner-modal-video-wrap" hidden>
+  <div class="banner-modal-video-wrap" hidden>
     <video class="banner-modal-video" playsinline loop></video>
     <button
-  class="banner-modal-mute"
-  type="button"
-  aria-label="Unmute video"
-  aria-pressed="true"
-  hidden
->
-  <svg class="banner-modal-mute-icon banner-modal-mute-icon--muted" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M3 9v6h4l5 5V4L7 9H3zm16.09 3 2.7-2.71-1.41-1.41L17.67 11.6l-2.71-2.72-1.41 1.42 2.71 2.7-2.71 2.72 1.41 1.41 2.71-2.71 2.71 2.71 1.41-1.41-2.7-2.72z" />
-  </svg>
-  <svg class="banner-modal-mute-icon banner-modal-mute-icon--unmuted" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
-  </svg>
-</button>
+      class="banner-modal-mute"
+      type="button"
+      aria-label="Unmute video"
+      aria-pressed="true"
+      hidden
+    >
+      <svg class="banner-modal-mute-icon banner-modal-mute-icon--muted" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm16.09 3 2.7-2.71-1.41-1.41L17.67 11.6l-2.71-2.72-1.41 1.42 2.71 2.7-2.71 2.72 1.41 1.41 2.71-2.71 2.71 2.71 1.41-1.41-2.7-2.72z" />
+      </svg>
+      <svg class="banner-modal-mute-icon banner-modal-mute-icon--unmuted" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+      </svg>
+    </button>
+    
   </div>
 
-
   <img class="banner-modal-image" alt="" hidden>
+
+  <button class="banner-modal-nav banner-modal-nav--prev" type="button" aria-label="Previous banner" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+  </button>
+  <button class="banner-modal-nav banner-modal-nav--next" type="button" aria-label="Next banner" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>
+  <button class="banner-modal-close" type="button" aria-label="Close">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
 `;
 document.body.append(dialog);
 
@@ -30,6 +40,21 @@ const videoWrap = dialog.querySelector(".banner-modal-video-wrap");
 const video = dialog.querySelector(".banner-modal-video");
 const image = dialog.querySelector(".banner-modal-image");
 const muteButton = dialog.querySelector(".banner-modal-mute");
+const closeButton = dialog.querySelector(".banner-modal-close");
+const prevButton = dialog.querySelector(".banner-modal-nav--prev");
+const nextButton = dialog.querySelector(".banner-modal-nav--next");
+
+let onPrev = null;
+let onNext = null;
+
+prevButton.addEventListener("click", () => onPrev?.());
+nextButton.addEventListener("click", () => onNext?.());
+closeButton.addEventListener("click", () => dialog.close());
+
+dialog.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") onPrev?.();
+  if (e.key === "ArrowRight") onNext?.();
+});
 
 muteButton.addEventListener("click", () => {
   video.muted = !video.muted;
@@ -50,7 +75,16 @@ export function openMedia({
   width,
   height,
   showreel = false,
+  group = "",
+  prev = null,
+  next = null,
 }) {
+  onPrev = prev;
+  onNext = next;
+  prevButton.hidden = nextButton.hidden = !(prev && next);
+  if (group) dialog.dataset.group = group;
+  else delete dialog.dataset.group;
+
   frame.hidden = videoWrap.hidden = image.hidden = true;
   muteButton.hidden = true;
 
@@ -81,22 +115,23 @@ export function openMedia({
   }
 
   document.body.style.overflow = "hidden";
-  dialog.showModal();
+  if (!dialog.open) dialog.showModal();
 }
 
 dialog.addEventListener("click", (e) => {
   if (e.target === dialog || e.target === image) dialog.close();
 });
 
-// runs for the X button, backdrop click AND the Escape key
 dialog.addEventListener("close", () => {
-  frame.src = "about:blank"; // stops the banner playing
-  video.pause();
+  frame.src = "about:blank";
   video.muted = true;
   video.removeAttribute("src");
   muteButton.hidden = true;
   muteButton.setAttribute("aria-label", "Unmute video");
   muteButton.setAttribute("aria-pressed", "true");
-  video.load(); // releases the file
+  video.load();
+  onPrev = onNext = null;
+  prevButton.hidden = nextButton.hidden = true;
+  delete dialog.dataset.group;
   document.body.style.overflow = "";
 });
