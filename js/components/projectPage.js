@@ -4,6 +4,7 @@ export function createProjectPage(project) {
       <div>
         <p class="project-number">${project.number} · ${project.discipline}</p>
         <h1 class="project-title">${project.title}</h1>
+        <img class="project-icon" src="${project.icon}" />
       </div>
       <div class="project-info">
         <p class="project-description">${project.description}</p>

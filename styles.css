@@ -62,7 +62,8 @@
 }
 
 .dark-mode .theme-toggle img,
-.dark-mode .footer-link img {
+.dark-mode .footer-link img,
+.dark-mode .project-icon {
   filter: invert(1);
 }
 
@@ -2011,6 +2012,15 @@ body.lightbox-open {
   line-height: 0.8;
 
   white-space: pre-line;
+}
+
+.project-icon {
+  display: block;
+  width: clamp(4rem, 7vw, 6rem);
+  height: auto;
+  border-radius: 10px;
+  margin-top: 1.25rem;
+  object-fit: contain;
 }
 
 .project-subtitles {

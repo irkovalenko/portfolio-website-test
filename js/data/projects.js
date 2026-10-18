@@ -13,6 +13,7 @@ export const projects = [
     imageWidth: 320,
     imageHeight: 480,
     role: "Design · Animation · Rich Media",
+    icon: "",
   },
   {
     slug: "animation",
@@ -28,6 +29,7 @@ export const projects = [
     imageWidth: 1650,
     imageHeight: 768,
     role: "Visual identity · Motion",
+    icon: "",
   },
   {
     slug: "web",
@@ -44,6 +46,7 @@ export const projects = [
     imageHeight: 1800,
     role: "UI design · Visual identity",
     externalUrl: "https://www.perelyn.com/",
+    icon: "",
   },
   {
     slug: "contests",
@@ -60,6 +63,7 @@ export const projects = [
     imageHeight: 768,
     role: "Direction · Animation",
     externalUrl: "https://filmfreeway.com/projects/4420973",
+    icon: "../../resources/contests/icona.jpeg",
   },
   {
     slug: "hobby",
@@ -75,5 +79,6 @@ export const projects = [
     imageWidth: 1024,
     imageHeight: 1536,
     role: "Illustration · Animation",
+    icon: "",
   },
 ];
