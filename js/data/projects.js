@@ -63,7 +63,7 @@ export const projects = [
     imageHeight: 768,
     role: "Direction · Animation",
     externalUrl: "https://filmfreeway.com/projects/4420973",
-    icon: "../../resources/contests/icona.jpeg",
+    icon: "../../resources/contests/icona.png",
   },
   {
     slug: "hobby",
