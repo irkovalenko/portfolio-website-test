@@ -1,4 +1,5 @@
 import { siteRoot } from "../helpers/paths.js";
+import { applyTranslations, loadDict } from "../helpers/lang.js";
 import { loadJobs } from "./loadJobs.js";
 
 export async function loadAbout() {
@@ -14,6 +15,8 @@ export async function loadAbout() {
   }
 
   container.innerHTML = await response.text();
+  await loadDict();
+  applyTranslations(container);
 
   const jobsList = container.querySelector("#jobs-list");
 

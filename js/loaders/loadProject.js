@@ -1,4 +1,5 @@
 import { projects } from "../data/projects.js";
+import { loadDict, localizeProject } from "../helpers/lang.js";
 import { createProjectPage } from "../components/projectPage.js";
 import { projectContent } from "../projectContent/index.js";
 import { openMedia } from "../components/modal.js";
@@ -6,12 +7,15 @@ import { openMedia } from "../components/modal.js";
 const root = document.querySelector("#project");
 if (!root) throw new Error('Missing <div id="project"></div> in project.html');
 
-const slug = document.body.dataset.slug;
-const project = projects.find((item) => item.slug === slug);
+await loadDict();
 
-if (!project) {
+const slug = document.body.dataset.slug;
+const found = projects.find((item) => item.slug === slug);
+
+if (!found) {
   root.innerHTML = `<p>Project not found.</p>`;
 } else {
+  const project = localizeProject(found);
   document.title = project.title.replace("\n", " ");
   root.innerHTML = createProjectPage(project);
 

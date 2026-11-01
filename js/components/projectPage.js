@@ -1,3 +1,5 @@
+import { t } from "../helpers/lang.js";
+
 export function createProjectPage(project) {
   return `
     <section class="project-hero">
@@ -9,8 +11,8 @@ export function createProjectPage(project) {
       <div class="project-info">
         <p class="project-description">${project.description}</p>
         <div class="project-meta">
-          <span>Role<br /><b>${project.role}</b></span>
-          <span>Year<br /><b>${project.year}</b></span>
+          <span>${t("project.role", "Role")}<br /><b>${project.role}</b></span>
+          <span>${t("project.year", "Year")}<br /><b>${project.year}</b></span>
         </div>
       </div>
       <div class="project-subtitles">

@@ -1,4 +1,5 @@
 import { siteRoot } from "../helpers/paths.js";
+import { applyTranslations, loadDict } from "../helpers/lang.js";
 import { loadTools } from "./loadTools.js";
 
 export async function loadCardsSection() {
@@ -13,6 +14,8 @@ export async function loadCardsSection() {
   }
 
   container.innerHTML = await response.text();
+  await loadDict();
+  applyTranslations(container);
 
   loadTools();
 }
