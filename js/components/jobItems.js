@@ -1,3 +1,5 @@
+import { t } from "../helpers/lang.js";
+
 export function createJobItem(job) {
   return `
     <article class="experience-item">
@@ -6,7 +8,7 @@ export function createJobItem(job) {
         <h3 class="experience-company">${job.company}</h3>
         <p class="experience-role">${job.role}</p>
       </div>
-      <p class="experience-text">${job.text}</p>
+      <p class="experience-text">${t(job.translationKey, job.text)}</p>
     </article>
   `;
 }

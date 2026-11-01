@@ -174,37 +174,28 @@ header {
 
 .nav-container {
   position: fixed;
-
   top: 0;
-
   left: 0;
-
   width: 100%;
 
-  display: grid;
-
-  grid-template-columns: minmax(0, 1fr) auto auto;
-
-  align-items: start;
-
-  gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
   padding: 1rem var(--page-pad);
-
   border-bottom: 1px solid var(--border);
   background-image: var(--dots);
   background-size: 12px 12px;
   background-position: center;
-
   background-color: var(--background);
-
   z-index: 1000;
 }
 
 .header-title {
   display: flex;
-
   flex-direction: column;
+  margin-right: auto;
+  min-width: 0;
 }
 
 .header-title h1 {
@@ -216,9 +207,9 @@ header {
 }
 
 .nav {
-  margin-left: auto;
+  margin: 0;
 
-  margin-bottom: 1rem;
+  flex-shrink: 0;
 
   display: flex;
 
@@ -2198,7 +2189,8 @@ body.lightbox-open {
 }
 
 button.footer-link,
-.theme-toggle {
+.theme-toggle,
+.lang-toggle {
   padding: 0;
 
   cursor: pointer;
@@ -2207,7 +2199,9 @@ button.footer-link,
 }
 
 .footer-link,
-.theme-toggle {
+.theme-toggle,
+.lang-toggle {
+  flex-shrink: 0;
   display: inline-flex;
 
   align-items: center;
@@ -2234,14 +2228,16 @@ button.footer-link,
 }
 
 .footer-link:hover,
-.theme-toggle:hover {
+.theme-toggle:hover,
+.lang-toggle:hover {
   background-color: var(--card);
 
   border-color: var(--muted);
 }
 
 .footer-link img,
-.theme-toggle img {
+.theme-toggle img,
+.lang-toggle img {
   display: block;
 
   width: 1.5rem;
@@ -2249,6 +2245,10 @@ button.footer-link,
   height: 1.5rem;
 
   object-fit: contain;
+}
+
+.lang-toggle img {
+  border-radius: 50%;
 }
 
 .footer-link svg {
@@ -2317,18 +2317,18 @@ button.footer-link,
   }
 
   .nav-container {
-    grid-template-columns: 1fr;
-
+    flex-wrap: wrap;
     gap: 0.75rem;
   }
 
+  .header-title {
+    flex: 1 1 auto;
+  }
+
   .nav {
-    margin: 0;
-
+    order: 3;
     width: 100%;
-
     justify-content: center;
-
     flex-wrap: wrap;
   }
 

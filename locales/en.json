@@ -1,0 +1,37 @@
+{
+  "nav.home": "Home",
+  "nav.about": "About",
+  "nav.projects": "Projects",
+
+  "contract.contract": "Contract",
+  "contract.freelance": "Freelance",
+
+  "toolbox.title": "toolbox / 02",
+  "showreel.title": "Showreel / 01",
+  "profile.title": "Profile / 03",
+  "profile.subtitle": "Making ideas move.",
+  "profile.intro": "I craft emotionally resonant design and animation across advertising, technology, film and visual identity.",
+
+  "meta.country": "Poland",
+  "meta.wordlwide": "Worldwide",
+
+  "about.eyebrow": "ABOUT / 04",
+  "about.title": "Curious by<br /><span class=\"text-violet\">nature</span>",
+  "about.intro": "Skilled in Adobe Creative Suite and Figma, with hands-on experience in an advertising agency, an AI technology startup and an animation studio. I keep learning, testing and refining techniques to make visual communication more engaging.",
+
+  "education": "Education",
+  "education.details": "BA Graphic Design<br />Animation specialisation<br />PJAIT, 2024",
+  "languages": "Languages",
+  "languages.details": "English · Polish<br />Russian · Japanese<br />German",
+
+  "jobs.hybridAdtech.description": "Interactive Rich Media, HTML banners, video and social content for digital and DOOH campaigns.",
+  "jobs.fourAM.description": "Motion graphics, visual effects and animated elements for film, television and brand projects.",
+  "jobs.perelyn.description": "Brand identity, guidelines, UI, image research and social content for an AI technology company.",
+
+  "work.eyebrow": "SELECTED WORK / 05",
+  "work.title": "Selected<br /><span class=\"text-violet\">work</span>",
+  "work.intro": "Commercial and self-initiated work across moving image, animation, visual identity and digital experiences.",
+
+  "project.notFound": "Project not found.",
+  "project.contentFailed": "Could not load project content."
+}
