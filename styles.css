@@ -62,6 +62,7 @@
 }
 
 .dark-mode .theme-toggle img,
+.dark-mode .lang-toggle img,
 .dark-mode .footer-link img,
 .dark-mode .project-icon {
   filter: invert(1);
