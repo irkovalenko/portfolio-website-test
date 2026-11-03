@@ -1,36 +1,38 @@
 {
-  "nav.home": "Start",
+  "nav.home": "Główna",
   "nav.about": "O mnie",
   "nav.projects": "Projekty",
 
-  "contract.contract": "Umowa o pracę",
-  "contract.freelance": "Freelancer",
+  "profession": "Motion designerka oraz animatorka",
+  "contract.contract": "UoP",
+  "contract.freelance": "Freelance",
 
   "meta.country": "Polska",
-  "meta.wordlwide": "Świat",
+  "meta.wordlwide": "Cały świat",
 
-  "toolbox.title": "Narzędzia / 02",
-  "showreel.title": "Portfolio wideo / 01",
+  "toolbox.title": "Zestaw narzędzi / 02",
+  "showreel.title": "Demo reel / 01",
   "profile.title": "Profil / 03",
   "profile.subtitle": "Wprawiam pomysły w ruch.",
-  "profile.intro": "Tworzę emocjonalnie rezonujący design i animację w reklamie, technologii, filmie i identyfikacji wizualnej.",
+  "profile.intro": "Projektuję i animuję, tworzę wizualne historie, które poruszają i zapadają w pamięć. Działam w obszarze reklamy, technologii, filmu i identyfikacji wizualnej.",
 
   "about.eyebrow": "O MNIE / 04",
-  "about.title": "Z natury ciekawa.",
-  "about.intro": "Posiadam umiejętności w zakresie pakietu Adobe Creative Suite i programu Figma, a także praktyczne doświadczenie zdobyte w agencji reklamowej, startupie zajmującym się technologią AI oraz studiu animacji. Nieustannie uczę się, testuję i udoskonalam techniki, aby komunikacja wizualna była bardziej angażująca.",
+  "about.title": "Ciągle coś odkrywam.",
+  "about.intro": "Swobodnie poruszam się w Adobe Creative Suite i Figmie. Mam praktyczne doświadczenie zdobyte w agencji reklamowej, startupie technologicznym opartym na AI oraz studiu animacji. Nieustannie się uczę, eksperymentuję i doskonalę warsztat, by tworzyć coraz bardziej angażującą komunikację wizualną.",
 
-  "education": "Wykształcenie",
-  "education.details": "BA Graphic Design<br />Specjalizacja w animacji<br />PJAIT, 2024",
+  "education": "Edukacja",
+  "education.details": "Grafik komputerowy, licencjat<br />Specjalizacja: Animacja<br />PJAIT, 2024",
   "languages": "Języki",
   "languages.details": "Angielski · Polski<br />Rosyjski · Japoński<br />Niemiecki",
 
-  "jobs.hybridAdtech.description": "Interaktywne formaty Rich Media, banery HTML, wideo i treści do mediów społecznościowych na potrzeby kampanii cyfrowych i DOOH.",
-  "jobs.fourAM.description": "Grafika ruchoma, efekty wizualne i animowane elementy do projektów filmowych, telewizyjnych i brandingowych.",
-  "jobs.perelyn.description": "Identyfikacja marki, wytyczne, interfejsy użytkownika, wyszukiwanie obrazów i treści do mediów społecznościowych dla firmy technologicznej AI.",
+  "jobs.hybridAdtech.description": "Interaktywne formaty Rich Media, banery HTML, materiały wideo i treści do kampanii cyfrowych oraz reklamy zewnętrznej DOOH.",
+  "jobs.fourAM.description": "Motion design, efekty wizualne i animowane elementy do produkcji filmowych, telewizyjnych oraz projektów brandingowych.",
+  "jobs.perelyn.description": "Identyfikacja wizualna marki, interfejsy użytkownika, research wizualny i materiały do mediów społecznościowych dla firmy technologicznej rozwijającej rozwiązania AI.",
 
   "work.eyebrow": "Wybrane projekty / 05",
   "work.title": "Wybrane<br /><span class=\"text-violet\">projekty</span>",
   "work.intro": "Prace komercyjne i autorskie z zakresu filmów, animacji, identyfikacji wizualnej oraz doświadczeń cyfrowych.",
+  "work.back": "← Wszystkie projekty",
 
   "project.notFound": "Nie znaleziono projektu.",
   "project.contentFailed": "Nie udało się wczytać treści.",
@@ -40,24 +42,35 @@
 
   "projects": {
     "advertisement": {
+      "discipline": "Animacja · RICH MEDIA",
       "title": "Banery reklamowe",
-      "description": "Stworzyłam serię animowanych banerów reklamowych do kampanii online. Większość z nich to interaktywne formaty Rich Media, łączące animację, responsywne layouty i bezpośrednią interakcję z odbiorcą."
+      "role": "Projektowanie · Animacja · Rich Media",
+      "description": "Jako grafik komputerowy tworzyłam animowane banery reklamowe na potrzeby kampanii internetowych. Większość z nich stanowiły interaktywne formaty Rich Media, łączące animację, responsywne układy i bezpośrednią interakcję z odbiorcą."
     },
     "animation": {
-      "title": "Strona internetowa",
-      "description": "Zaprojektowałam niestandardową stronę docelową WeTransfer dla 4AM, zaczynając od przemyślenia logo firmy, aby wyznaczyć odświeżony kierunek wizualny. Gotowy projekt został następnie zanimowany w After Effects."
+      "discipline": "Branding· Animacja",
+      "title": "Rebranding",
+      "role": "Identyfikacja · Animacja",
+      "description": "Zaprojektowałam dedykowaną stronę transferową WeTransfer dla studia 4AM. Pracę rozpoczęłam od opracowania nowej wersji logo, która wyznaczyła odświeżony kierunek wizualny marki. Następnie ożywiłam projekt, tworząc animację w After Effects."
     },
     "contests": {
+      "discipline": "Film krótkometrażowy · Festiwale",
       "title": "Konkursy",
-      "description": "Projekt filmowy zaprezentowany za pośrednictwem serwisu FilmFreeway, łączący narrację wizualną, animację oraz niezależnie wyprodukowane filmy."
+      "role": "art director · animator",
+      "description": "Autorski film krótkometrażowy łączący wizualną narrację i animację. Zaprezentowany podczas pokazu na festiwalu animacji ICONA 2026."
     },
     "hobby": {
-      "title": "Projekty hobbystyczne",
-      "description": "Projekt filmowy zaprezentowany za pośrednictwem serwisu FilmFreeway, łączący narrację wizualną, animację oraz niezależnie wyprodukowane filmy."
+      "discipline": "Anime studies · Fan art",
+      "title": "Po godzinach",
+      "subtitle": "Animacyjne eksperymenty",
+      "role": "Tworzenie ilustracji · Animacja",
+      "description": "Inspirując się japońską animacją, odtwarzam wybrane sceny z anime, tworzę fanarty i nadaję im ruch. To dla mnie okazja do eksperymentowania i doskonalenia warsztatu poprzez praktykę – uczę się wyczucia czasu, kompozycji i sposobu animowania postaci."
     },
     "web": {
-      "title": "Strona internetowa",
-      "description": "Wybrane projekty interfejsów, w których zachowano równowagę między przejrzystą architekturą informacji, modułowymi systemami projektowymi a wyrazistymi detalami wizualnymi w responsywnych stronach internetowych."
+      "discipline": "UI · Projektowanie cyrfrowe",
+      "title": "Web",
+      "role": "UI · Identyfikacja wizualna",
+      "description": "Wybrane projekty interfejsów, łączące przejrzystą strukturę informacji, modułowe systemy projektowe i wyraziste detale wizualne w responsywnych serwisach internetowych."
     }
   }
 }
