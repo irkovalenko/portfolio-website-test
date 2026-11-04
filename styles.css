@@ -382,9 +382,9 @@ header {
 }
 
 .hero-star {
-  left: 50%;
+  left: 74%;
   top: 0;
-  transform: translate(20%, -50%);
+  transform: translate(0, -52%);
   animation-delay: 15s;
 }
 
@@ -2368,6 +2368,13 @@ button.footer-link,
 
     font-weight: 900;
   }
+
+  .hero-star {
+    left: 100%;
+    top: 100%;
+    transform: translate(-40%, -50%);
+  }
+
   .hero-star-left {
     transform: translate(-70%, -120%);
   }

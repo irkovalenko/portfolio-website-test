@@ -1,15 +1,34 @@
+import { getLang } from "../helpers/lang.js";
 import { createBannerCard } from "./bannerCard.js";
 
 const SECTIONS = [
-  { key: "interactive", title: "Click &amp; interact", modifier: "purple" },
-  { key: "static", title: "Gallery", modifier: "green" },
+  {
+    key: "interactive",
+    title: { en: "Click & interact", pl: "Kliknij i odkryj" },
+    modifier: "purple",
+  },
+  {
+    key: "static",
+    title: { en: "Gallery", pl: "Galeria" },
+    modifier: "green",
+  },
 ];
+
+function resolveLabel(value) {
+  const lang = getLang();
+
+  if (typeof value === "object" && value !== null) {
+    return value[lang] ?? value.en ?? value.pl ?? "";
+  }
+
+  return value ?? "";
+}
 
 function createSection({ title, modifier }, items) {
   return `
     <section class="banner-section banner-section--${modifier} raster-dots">
       <div class="profile-card-header">
-        <span class="profile-card-label">${title}</span>
+        <span class="profile-card-label">${resolveLabel(title)}</span>
       </div>
       <ul class="gallery">${items.map(createBannerCard).join("")}</ul>
     </section>

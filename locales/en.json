@@ -15,6 +15,9 @@
   "meta.country": "Poland",
   "meta.wordlwide": "Worldwide",
 
+  "hero.title.top": "Bey<span class=\"line-anchor\">o</span>nd",
+  "hero.title.bottom": "Stati<span class=\"letter-c\">c<img class=\"hero-star\" src=\"../resources/star.svg\" alt=\"\" /></span>",
+
   "about.eyebrow": "ABOUT / 04",
   "about.title": "Curious by<br /><span class=\"text-violet\">nature</span>",
   "about.intro": "Skilled in Adobe Creative Suite and Figma, with hands-on experience in an advertising agency, an AI technology startup and an animation studio. I keep learning, testing and refining techniques to make visual communication more engaging.",

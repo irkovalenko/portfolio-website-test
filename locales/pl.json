@@ -10,6 +10,9 @@
   "meta.country": "Polska",
   "meta.wordlwide": "Cały świat",
 
+  "hero.title.top": "Więcej niż",
+  "hero.title.bottom": "obra<span class=\"letter-c\">z<img class=\"hero-star\" src=\"../resources/star.svg\" alt=\"\" /></span>",
+
   "toolbox.title": "Zestaw narzędzi / 02",
   "showreel.title": "Demo reel / 01",
   "profile.title": "Profil / 03",
@@ -21,7 +24,8 @@
   "about.intro": "Swobodnie poruszam się w Adobe Creative Suite i Figmie. Mam praktyczne doświadczenie zdobyte w agencji reklamowej, startupie technologicznym opartym na AI oraz studiu animacji. Nieustannie się uczę, eksperymentuję i doskonalę warsztat, by tworzyć coraz bardziej angażującą komunikację wizualną.",
 
   "education": "Edukacja",
-  "education.details": "Grafik komputerowy, licencjat<br />Specjalizacja: Animacja<br />PJAIT, 2024",
+  "education.details.graphic-design": "Grafik komputerowy, licencjat<br />Specjalizacja: Animacja<br />PJAIT, 2021-2024",
+  "education.details.biotechnology": "Biotechnologia, licencjat<br />Uniwersytet Wrocławski, 2018-2021",
   "languages": "Języki",
   "languages.details": "Angielski · Polski<br />Rosyjski · Japoński<br />Niemiecki",
 

@@ -1,6 +1,7 @@
 import { mouse_shrine } from "../../data/mouse_shrine.js";
 import { createLightBoxGallery } from "../../components/galleryLightBox.js";
 import { initImageModal } from "../../components/imageModal.js";
+import { getLang } from "../../helpers/lang.js";
 import "../../components/videoModal.js";
 
 const resourcesUrl = new URL(
@@ -10,10 +11,17 @@ const resourcesUrl = new URL(
 
 export function renderContests(container) {
   const [item] = mouse_shrine;
+  const rawDescription =
+    typeof item.description === "object" && item.description !== null
+      ? (item.description[getLang()] ??
+        item.description.en ??
+        item.description.pl ??
+        "")
+      : item.description;
 
-  const description = Array.isArray(item.description)
-    ? item.description.map((p) => `<p>${p}</p>`).join("")
-    : item.description;
+  const description = Array.isArray(rawDescription)
+    ? rawDescription.map((p) => `<p>${p}</p>`).join("")
+    : rawDescription;
 
   const stills = (item.images ?? [])
     .map((still) => {

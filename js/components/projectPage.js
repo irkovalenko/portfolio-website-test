@@ -1,6 +1,12 @@
-import { t } from "../helpers/lang.js";
+import { getLang, t } from "../helpers/lang.js";
 
 export function createProjectPage(project) {
+  const lang = getLang();
+  const rawYear = String(project.year ?? "");
+  const hasYearRange = /[-—]/.test(rawYear);
+  const yearLabel =
+    lang === "pl" ? (hasYearRange ? "lata" : "rok") : t("project.year", "Year");
+
   return `
     <section class="project-hero">
       <div>
@@ -12,7 +18,7 @@ export function createProjectPage(project) {
         <p class="project-description">${project.description}</p>
         <div class="project-meta">
           <span>${t("project.role", "Role")}<br /><b>${project.role}</b></span>
-          <span>${t("project.year", "Year")}<br /><b>${project.year}</b></span>
+          <span>${yearLabel}<br /><b>${project.year}</b></span>
         </div>
       </div>
       <div class="project-subtitles">
