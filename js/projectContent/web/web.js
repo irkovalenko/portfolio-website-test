@@ -1,4 +1,5 @@
 import { siteRoot } from "../../helpers/paths.js";
+import { t } from "../../helpers/lang.js";
 import { createLightBoxGallery } from "../../components/galleryLightBox.js";
 import { initImageModal } from "../../components/imageModal.js";
 
@@ -32,7 +33,7 @@ export function renderWeb(slot) {
           rel="noopener noreferrer"
           class="perelyn-link"
         >
-          Visit website
+          ${t("web.visitWebsite", "Visit website")}
         </a>
       </div>
 

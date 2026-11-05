@@ -163,6 +163,11 @@ h3,
   color: var(--violet);
 }
 
+p {
+  text-align: justify;
+
+  text-justify: inter-word;
+}
 /* ==========================================================================
 
    Header
@@ -2655,9 +2660,16 @@ button.footer-link,
   .profile-card p {
     margin-top: 0.75rem;
 
+    max-width: none;
+
     font-size: 0.8rem;
 
     line-height: 1.4;
+  }
+
+  .profile-card p > span {
+    display: block;
+    width: 100%;
   }
 
   .toolbox-card {
