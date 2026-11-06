@@ -1,3 +1,4 @@
+import { glue } from "https://esm.sh/@typehug/all";
 import { mouse_shrine } from "../../data/mouse_shrine.js";
 import { createLightBoxGallery } from "../../components/galleryLightBox.js";
 import { initImageModal } from "../../components/imageModal.js";
@@ -19,9 +20,11 @@ export function renderContests(container) {
         "")
       : item.description;
 
+  const lang = getLang() === "pl" ? "pl" : "en";
+
   const description = Array.isArray(rawDescription)
-    ? rawDescription.map((p) => `<p>${p}</p>`).join("")
-    : rawDescription;
+    ? rawDescription.map((p) => `<p>${glue(p, { locale: lang })}</p>`).join("")
+    : glue(rawDescription, { locale: lang });
 
   const stills = (item.images ?? [])
     .map((still) => {
@@ -63,7 +66,7 @@ export function renderContests(container) {
     </figure>
 
     <section class="work-info">
-      <div class="work-description">
+      <div class="work-description" lang="${lang}">
         ${description}
       </div>
 

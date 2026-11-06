@@ -1217,10 +1217,11 @@ body.lightbox-open {
 
 .work-description {
   line-height: 1.6;
-
   color: var(--muted-foreground);
-
   text-align: justify;
+  text-wrap: pretty;
+  hyphens: auto;
+  word-spacing: normal;
 }
 
 .card-size {
