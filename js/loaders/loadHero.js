@@ -1,5 +1,5 @@
 import { loadComponent } from "./loadComponent.js";
-import { siteRoot } from "../helpers/paths.js";
+import { siteRoot, pageUrl } from "../helpers/paths.js";
 
 const heroUrl = new URL("components/hero.html", siteRoot);
 
@@ -41,10 +41,11 @@ if (anchor && pinkLine) {
 }
 
 document.querySelectorAll("#hero nav a[href]").forEach((a) => {
-  const relativeHref = a.getAttribute("href");
+  const href = a.getAttribute("href");
 
-  a.href = new URL(
-    relativeHref,
-    relativeHref.startsWith("#") ? homeUrl : siteRoot,
-  ).href;
+  if (href.startsWith("#")) {
+    a.href = pageUrl(href);
+  } else {
+    a.href = pageUrl(href);
+  }
 });
