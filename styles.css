@@ -1222,6 +1222,14 @@ body.lightbox-open {
   text-wrap: pretty;
   hyphens: auto;
   word-spacing: normal;
+  letter-spacing: normal;
+  max-width: 65ch;
+}
+
+.work-description[lang="pl"],
+.work-description[lang="en"] {
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 .card-size {
