@@ -17,6 +17,48 @@ const fromSentinel = (s) =>
 const unwrap = (mod, key) => mod[key] ?? mod.default?.[key];
 const ctx = document.createElement("canvas").getContext("2d");
 
+function limitHyphenation(hyphenate, minWord = 6, minLeft = 3, minRight = 3) {
+  return (word) => {
+    if (word.length < minWord) return [word];
+
+    const parts = hyphenate(word);
+    if (
+      !Array.isArray(parts) ||
+      parts.length < 2 ||
+      typeof parts[0] !== "string"
+    ) {
+      return parts;
+    }
+
+    const out = [];
+    let acc = "";
+    parts.forEach((part, i) => {
+      acc += part;
+      const rest = parts.slice(i + 1).join("").length;
+      if (
+        i === parts.length - 1 ||
+        (acc.length >= minLeft && rest >= minRight)
+      ) {
+        out.push(acc);
+        acc = "";
+      }
+    });
+    return out;
+  };
+}
+
+function protectGlued(hyphenate) {
+  return (word) => {
+    const m = word.match(/^([\s\S]*[\uE000\uE001])([^\uE000\uE001]+)$/);
+    if (!m) return hyphenate(word);
+
+    const [, head, tail] = m;
+    const parts = hyphenate(tail);
+    if (!Array.isArray(parts) || typeof parts[0] !== "string") return [word];
+    return [head + parts[0], ...parts.slice(1)];
+  };
+}
+
 function layoutParagraph(p, api, hyphenate) {
   const original = (p.dataset.texText ??= p.textContent);
   const cs = getComputedStyle(p);
@@ -92,7 +134,9 @@ export async function justifyDescription(root, lang) {
   let hyphenate; // undefined = no hyphenation
   try {
     const mod = await (patternLoaders[lang] ?? patternLoaders.en)();
-    hyphenate = api.createHyphenator(mod.default ?? mod);
+    hyphenate = protectGlued(
+      limitHyphenation(api.createHyphenator(mod.default ?? mod), 6, 3, 3),
+    );
   } catch (err) {
     console.warn(
       `No hyphenation patterns for "${lang}", justifying without`,
