@@ -1215,18 +1215,25 @@ body.lightbox-open {
   gap: 0.75rem;
 }
 
+.work-description .tex-line {
+  display: block;
+  white-space: nowrap;
+}
+
 .work-description {
   line-height: 1.6;
   color: var(--muted-foreground);
+  word-spacing: normal;
+  letter-spacing: normal;
+}
+
+.work-description > p {
+  margin: 0;
   text-align: left;
   text-wrap: pretty;
   hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 6 3 3; /* min word length, min before, min after */
-
+  hyphenate-limit-chars: 6 3 3;
   overflow-wrap: break-word;
-  word-spacing: normal;
-  letter-spacing: normal;
 }
 
 .card-size {
@@ -2269,17 +2276,19 @@ button.footer-link,
   }
 }
 
-@media (min-width: 1100px) {
-  .work-description {
-    text-align: justify;
-    text-justify: inter-word;
-    hyphenate-limit-chars: 5 2 2;
-  }
-}
-
 @media (min-width: 900px) {
   .banner-grid {
     grid-template-columns: var(--banner-columns, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .work-info {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-description {
+    min-width: 0;
   }
 }
 

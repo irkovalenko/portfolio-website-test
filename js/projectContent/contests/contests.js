@@ -3,6 +3,7 @@ import { mouse_shrine } from "../../data/mouse_shrine.js";
 import { createLightBoxGallery } from "../../components/galleryLightBox.js";
 import { initImageModal } from "../../components/imageModal.js";
 import { getLang } from "../../helpers/lang.js";
+import { justifyDescription } from "../../helpers/justify.js";
 import "../../components/videoModal.js";
 
 const resourcesUrl = new URL(
@@ -24,7 +25,7 @@ export function renderContests(container) {
 
   const description = Array.isArray(rawDescription)
     ? rawDescription.map((p) => `<p>${glue(p, { locale: lang })}</p>`).join("")
-    : glue(rawDescription, { locale: lang });
+    : `<p>${glue(rawDescription, { locale: lang })}</p>`;
 
   const stills = (item.images ?? [])
     .map((still) => {
@@ -77,4 +78,5 @@ export function renderContests(container) {
   `;
 
   initImageModal(container);
+  justifyDescription(container.querySelector(".work-description"), lang);
 }
