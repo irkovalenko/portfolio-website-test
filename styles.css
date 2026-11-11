@@ -1215,11 +1215,6 @@ body.lightbox-open {
   gap: 0.75rem;
 }
 
-.work-description .tex-line {
-  display: block;
-  white-space: nowrap;
-}
-
 .work-description {
   line-height: 1.6;
   color: var(--muted-foreground);
@@ -1311,6 +1306,15 @@ body.lightbox-open {
   padding: 1.5rem;
 
   color: var(--ink);
+}
+
+.profile-intro {
+  display: block;
+}
+
+.tex-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .profile-card-header {
@@ -2519,10 +2523,6 @@ button.footer-link,
     transform: none;
     z-index: 21;
   }
-  .work-info {
-    grid-template-columns: 1fr;
-  }
-
   .perelyn-secondary-grid {
     grid-template-columns: 1fr;
   }

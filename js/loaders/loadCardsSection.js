@@ -1,5 +1,7 @@
 import { siteRoot } from "../helpers/paths.js";
-import { applyTranslations, loadDict } from "../helpers/lang.js";
+import { applyTranslations, getLang, loadDict } from "../helpers/lang.js";
+import { glue } from "https://esm.sh/@typehug/all";
+import { justify } from "../helpers/justify.js";
 import { loadTools } from "./loadTools.js";
 
 export async function loadCardsSection() {
@@ -16,6 +18,15 @@ export async function loadCardsSection() {
   container.innerHTML = await response.text();
   await loadDict();
   applyTranslations(container);
+
+  const lang = getLang() === "pl" ? "pl" : "en";
+  const intro = container.querySelector(".profile-intro");
+  if (intro) intro.textContent = glue(intro.textContent, { locale: lang });
+  void justify(
+    container.querySelector(".profile-card-content"),
+    lang,
+    ".profile-intro",
+  );
 
   loadTools();
 }

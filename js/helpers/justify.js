@@ -109,7 +109,7 @@ function layoutParagraph(p, api, hyphenate) {
   p.replaceChildren(frag);
 }
 
-export async function justifyDescription(root, lang) {
+export async function justify(root, lang, selector = "p") {
   let api;
   try {
     const lib = await import(LIB_URL);
@@ -147,7 +147,7 @@ export async function justifyDescription(root, lang) {
   await document.fonts.ready;
 
   const run = () => {
-    root.querySelectorAll("p").forEach((p) => {
+    root.querySelectorAll(selector).forEach((p) => {
       try {
         layoutParagraph(p, api, hyphenate);
       } catch (err) {

@@ -3,7 +3,7 @@ import { mouse_shrine } from "../../data/mouse_shrine.js";
 import { createLightBoxGallery } from "../../components/galleryLightBox.js";
 import { initImageModal } from "../../components/imageModal.js";
 import { getLang } from "../../helpers/lang.js";
-import { justifyDescription } from "../../helpers/justify.js";
+import { justify } from "../../helpers/justify.js";
 import "../../components/videoModal.js";
 
 const resourcesUrl = new URL(
@@ -78,5 +78,5 @@ export function renderContests(container) {
   `;
 
   initImageModal(container);
-  justifyDescription(container.querySelector(".work-description"), lang);
+  justify(container.querySelector(".work-description"), lang);
 }
