@@ -1,5 +1,6 @@
 const LIB_URL =
   "https://esm.sh/tex-linebreak@0.9.0?cjs-exports=createHyphenator,layoutItemsFromString,breakLines";
+const GLUE_URL = "https://esm.sh/@typehug/all";
 
 const patternLoaders = {
   en: () => import("https://esm.sh/hyphenation.en-us"),
@@ -59,8 +60,10 @@ function protectGlued(hyphenate) {
   };
 }
 
-function layoutParagraph(p, api, hyphenate) {
-  const original = (p.dataset.texText ??= p.textContent);
+function layoutParagraph(p, api, hyphenate, glueText) {
+  const raw = (p.dataset.texText ??= p.textContent);
+  const original = glueText(raw);
+
   const cs = getComputedStyle(p);
   ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
 
@@ -98,7 +101,6 @@ function layoutParagraph(p, api, hyphenate) {
     span.textContent = line;
 
     if (!isLast) {
-      // Spread the leftover width over the spaces of this line
       const natural = ctx.measureText(line).width;
       const gaps = (line.match(/[ \u00A0]/g) || []).length;
       if (gaps) span.style.wordSpacing = `${(width - natural) / gaps}px`;
@@ -110,6 +112,10 @@ function layoutParagraph(p, api, hyphenate) {
 }
 
 export async function justify(root, lang, selector = "p") {
+  if (!root) return;
+
+  const locale = lang === "pl" ? "pl" : "en";
+
   let api;
   try {
     const lib = await import(LIB_URL);
@@ -133,15 +139,29 @@ export async function justify(root, lang, selector = "p") {
 
   let hyphenate; // undefined = no hyphenation
   try {
-    const mod = await (patternLoaders[lang] ?? patternLoaders.en)();
+    const mod = await patternLoaders[locale]();
     hyphenate = protectGlued(
       limitHyphenation(api.createHyphenator(mod.default ?? mod), 6, 3, 3),
     );
   } catch (err) {
     console.warn(
-      `No hyphenation patterns for "${lang}", justifying without`,
+      `No hyphenation patterns for "${locale}", justifying without`,
       err,
     );
+  }
+
+  // Language-specific non-breaking spaces (single source of truth for gluing).
+  let glueText = (s) => s; // fallback: no gluing
+  try {
+    const mod = await import(GLUE_URL);
+    const glue = unwrap(mod, "glue");
+    if (typeof glue === "function") {
+      glueText = (s) => glue(s, { locale });
+    } else {
+      console.warn("glue export missing, justifying without it");
+    }
+  } catch (err) {
+    console.warn("glue failed to load, justifying without it", err);
   }
 
   await document.fonts.ready;
@@ -149,7 +169,7 @@ export async function justify(root, lang, selector = "p") {
   const run = () => {
     root.querySelectorAll(selector).forEach((p) => {
       try {
-        layoutParagraph(p, api, hyphenate);
+        layoutParagraph(p, api, hyphenate, glueText);
       } catch (err) {
         console.warn("Line breaking failed for a paragraph", err);
         if (p.dataset.texText) p.textContent = p.dataset.texText;
