@@ -13,12 +13,10 @@
   --ink: oklch(0.15 0.015 270);
   --font-sans: "Space Grotesk", sans-serif;
   --font-display: "Archivo Black", sans-serif;
-  --dots: radial-gradient(
-    circle,
-    rgba(17, 17, 17, 0.08) 1px,
+  --dots: radial-gradient(circle,
+      rgba(17, 17, 17, 0.08) 1px,
 
-    transparent 1px
-  );
+      transparent 1px);
 }
 
 /* ========================================
@@ -35,11 +33,9 @@
   --muted-foreground: oklch(0.72 0.015 270);
   --border: oklch(0.34 0.015 270);
   --ink: oklch(0.95 0.008 90);
-  --dots: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.18) 1px,
-    transparent 1px
-  );
+  --dots: radial-gradient(circle,
+      rgba(255, 255, 255, 0.18) 1px,
+      transparent 1px);
 }
 
 .dark-mode .profile-card,
@@ -162,6 +158,7 @@ h3,
 .text-violet {
   color: var(--violet);
 }
+
 /* ==========================================================================
 
    Header
@@ -807,15 +804,19 @@ body.lightbox-open {
   color: white;
   cursor: pointer;
 }
+
 .banner-modal-nav:hover {
   background: rgb(15 15 15 / 0.95);
 }
+
 .banner-modal-nav[hidden] {
   display: none;
 }
+
 .banner-modal-nav--prev {
   left: calc(-1 * var(--edge));
 }
+
 .banner-modal-nav--next {
   right: calc(-1 * var(--edge));
 }
@@ -847,6 +848,7 @@ body.lightbox-open {
   color: white;
   cursor: pointer;
 }
+
 .banner-modal-close svg {
   width: 1.25rem;
   height: 1.25rem;
@@ -1222,7 +1224,7 @@ body.lightbox-open {
   letter-spacing: normal;
 }
 
-.work-description > p {
+.work-description>p {
   margin: 0;
   text-align: left;
   text-wrap: pretty;
@@ -1280,12 +1282,10 @@ body.lightbox-open {
    -------------------------------------------------------------------------- */
 
 .raster-dots {
-  background-image: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 0.08) 1px,
+  background-image: radial-gradient(circle,
+      rgba(0, 0, 0, 0.08) 1px,
 
-    transparent 1px
-  );
+      transparent 1px);
 
   background-size: 12px 12px;
 
@@ -1334,6 +1334,7 @@ body.lightbox-open {
 }
 
 @keyframes drift {
+
   0%,
   100% {
     transform: translateY(0);
@@ -1603,11 +1604,9 @@ body.lightbox-open {
 }
 
 .raster-dots-lighter {
-  background-image: radial-gradient(
-    circle,
-    rgba(174, 164, 164, 0.65) 1px,
-    transparent 1px
-  );
+  background-image: radial-gradient(circle,
+      rgba(174, 164, 164, 0.65) 1px,
+      transparent 1px);
   background-size: 12px 12px;
   background-position: center;
 }
@@ -1703,7 +1702,7 @@ body.lightbox-open {
 .about-title {
   margin: 1rem 0 0;
 
-  font-size: clamp(2.7rem, 8vw, 5.5rem);
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
 
   line-height: 0.9;
 }
@@ -1762,7 +1761,7 @@ body.lightbox-open {
   padding: 1.75rem 0;
 }
 
-.experience-item + .experience-item {
+.experience-item+.experience-item {
   border-top: 1px solid var(--border);
 }
 
@@ -1837,14 +1836,14 @@ body.lightbox-open {
 .work-title {
   margin: 0;
 
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
 
   line-height: 0.88;
 }
 
 .work-intro {
-  max-width: 20rem;
-
+  width: 20rem;
+  max-width: 100%;
   margin: 0;
 
   font-family: var(--font-sans);
@@ -1911,13 +1910,11 @@ body.lightbox-open {
 
   inset: 0;
 
-  background: linear-gradient(
-    to top,
+  background: linear-gradient(to top,
 
-    oklch(0.15 0.015 270 / 0.95),
-    transparent,
-    oklch(0.15 0.015 270 / 0.2)
-  );
+      oklch(0.15 0.015 270 / 0.95),
+      transparent,
+      oklch(0.15 0.015 270 / 0.2));
 }
 
 .work-card-content {
@@ -1996,7 +1993,7 @@ body.lightbox-open {
   border-bottom: 1px solid var(--border);
 }
 
-.project-hero > * {
+.project-hero>* {
   min-width: 0;
 }
 
@@ -2071,6 +2068,9 @@ body.lightbox-open {
   line-height: 1.625;
 
   color: var(--muted-foreground);
+  text-align: left;
+  text-wrap: pretty;
+  hyphens: auto;
 }
 
 .project-meta {
@@ -2439,6 +2439,11 @@ button.footer-link,
     padding: 6rem 0;
   }
 
+  .about-inner>*,
+  .experience-item>* {
+    min-width: 0;
+  }
+
   .about-inner {
     padding: 0 2rem;
   }
@@ -2523,6 +2528,7 @@ button.footer-link,
     transform: none;
     z-index: 21;
   }
+
   .perelyn-secondary-grid {
     grid-template-columns: 1fr;
   }
@@ -2618,7 +2624,7 @@ button.footer-link,
     column-gap: 1.5rem;
   }
 
-  .experience-item > :last-child {
+  .experience-item> :last-child {
     grid-column: 2;
   }
 
@@ -2791,6 +2797,7 @@ button.footer-link,
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .marquee-track,
   .profile-card-icon {
     animation: none;

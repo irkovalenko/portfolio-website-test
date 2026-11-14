@@ -1,10 +1,10 @@
 import { siteRoot } from "../helpers/paths.js";
-import { applyTranslations, loadDict } from "../helpers/lang.js";
+import { applyTranslations, getLang, loadDict } from "../helpers/lang.js";
+import { justify } from "../helpers/justify.js";
 import { loadJobs } from "./loadJobs.js";
 
 export async function loadAbout() {
   const container = document.querySelector("#about");
-
   if (!container) return;
 
   const url = new URL("components/about.html", siteRoot);
@@ -18,6 +18,10 @@ export async function loadAbout() {
   await loadDict();
   applyTranslations(container);
 
+  const lang = getLang();
+
+  void justify(container.querySelector(".about-intro"), lang, ".about-text");
+
   const jobsList = container.querySelector("#jobs-list");
 
   if (!jobsList) {
@@ -25,7 +29,8 @@ export async function loadAbout() {
     return;
   }
 
-  loadJobs(jobsList);
+  await loadJobs(jobsList);
+  void justify(jobsList, lang, ".experience-text");
 }
 
 loadAbout();

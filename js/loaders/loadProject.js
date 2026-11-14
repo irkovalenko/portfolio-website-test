@@ -1,5 +1,6 @@
 import { projects } from "../data/projects.js";
-import { loadDict, localizeProject } from "../helpers/lang.js";
+import { getLang, loadDict, localizeProject } from "../helpers/lang.js";
+import { justify } from "../helpers/justify.js";
 import { createProjectPage } from "../components/projectPage.js";
 import { projectContent } from "../projectContent/index.js";
 import { openMedia } from "../components/modal.js";
@@ -18,6 +19,12 @@ if (!found) {
   const project = localizeProject(found);
   document.title = project.title.replace("\n", " ");
   root.innerHTML = createProjectPage(project);
+
+   void justify(
+    root.querySelector(".project-info"),
+    getLang(),
+    ".project-description",
+  );
 
   const loadContent = projectContent[project.slug];
   const slot = root.querySelector("#project-content");
