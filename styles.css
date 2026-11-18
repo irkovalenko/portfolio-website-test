@@ -103,6 +103,13 @@ body {
   color: var(--ink);
 }
 
+.tex-ragged {
+  text-align: left;
+  text-wrap: pretty;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+}
+
 h1,
 h2,
 h3,
@@ -1789,6 +1796,8 @@ body.lightbox-open {
 
 .experience-text {
   margin: 0;
+
+  max-width: 62ch;
 
   font-family: var(--font-sans);
 

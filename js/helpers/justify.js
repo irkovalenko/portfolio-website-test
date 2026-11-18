@@ -7,6 +7,27 @@ const patternLoaders = {
   pl: () => import("https://esm.sh/hyphenation.pl"),
 };
 
+// Set to true to log the chosen layout of every paragraph.
+const DEBUG = false;
+
+// Below this many characters per line, ragged-right beats justified.
+const MIN_MEASURE = 45;
+
+// "Reduce spacing" lever: break the paragraph as if the column were this much
+// wider, then squeeze each line to the real width with negative word-spacing.
+// Fractions of the real width; 0 = normal layout.
+const WIDTH_NUDGES = [0, 0.005, 0.01, 0.015];
+
+// Scoring (units: squared gap deviation, where 1 = gap off by one normal space).
+const HYPHEN_COST = 0.3; // one hyphen costs as much as a line off by ~0.55 spaces
+const TIGHT_WEIGHT = 2; // squeezed gaps look worse than loose ones of equal size
+const OVERFLOW_PENALTY = 25; // a line that does not fit the column
+
+// If even the best layout has a gap this far from normal, give up on
+// justification for that paragraph and let CSS render it ragged.
+const RAGGED_IF_LOOSER_THAN = 1.2; // gap > 2.2x a normal space
+const RAGGED_IF_TIGHTER_THAN = 0.4; // gap < 0.6x a normal space
+
 const NBSP = "\u00A0";
 const NNBSP = "\u202F";
 const S_NBSP = "\uE000";
@@ -60,6 +81,60 @@ function protectGlued(hyphenate) {
   };
 }
 
+// Approximate characters per line for the current ctx.font.
+function charsPerLine(text, width) {
+  const avg = ctx.measureText(text).width / Math.max(text.length, 1);
+  return width / avg;
+}
+
+function toLines(items, breaks) {
+  const lines = [];
+  let start = 0;
+  breaks.forEach((bp, i) => {
+    const last = i === breaks.length - 1;
+    let text = items
+      .slice(start, bp)
+      .map((it) => it.text ?? "")
+      .join("");
+    let hyphenated = false;
+    if (
+      !last &&
+      items[bp]?.flagged &&
+      !/[-\u2010\u2011\u2013\u2014]$/.test(text)
+    ) {
+      text += "-";
+      hyphenated = true;
+    }
+    text = fromSentinel(text).replace(/ +$/, "");
+    lines.push({ text, last, hyphenated });
+    start = bp + 1;
+  });
+  return lines;
+}
+
+// Gap per line relative to a normal space (-0.1 = 10% tighter, 1 = twice as wide)
+// plus a penalty that grows with how far gaps are from normal.
+function spacingStats(lines, width, spaceW) {
+  let min = 0;
+  let max = 0;
+  let penalty = 0;
+  for (const l of lines) {
+    const natural = ctx.measureText(l.text).width;
+    const gaps = (l.text.match(/[ \u00A0]/g) || []).length; // word-spacing skips U+202F
+
+    if (l.last || !gaps) {
+      if (natural > width + 0.5) penalty += OVERFLOW_PENALTY;
+      continue;
+    }
+
+    const s = (width - natural) / gaps / spaceW;
+    min = Math.min(min, s);
+    max = Math.max(max, s);
+    penalty += s < 0 ? TIGHT_WEIGHT * s * s : s * s;
+  }
+  return { min, max, penalty };
+}
+
 function layoutParagraph(p, api, hyphenate, glueText) {
   const raw = (p.dataset.texText ??= p.textContent);
   const original = glueText(raw);
@@ -67,40 +142,85 @@ function layoutParagraph(p, api, hyphenate, glueText) {
   const cs = getComputedStyle(p);
   ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
 
-  const measure = (w) => ctx.measureText(fromSentinel(w)).width;
   const width = p.getBoundingClientRect().width;
 
-  const text = toSentinel(original.replace(/[ \t\r\n]+/g, " ").trim());
-  const items = api.layoutItemsFromString(text, measure, hyphenate);
+  const ragged = () => {
+    p.textContent = raw;
+    p.classList.add("tex-ragged");
+  };
 
-  let breaks = api.breakLines(items, width);
-  if (breaks[0] === 0) breaks = breaks.slice(1);
+  // Too narrow for good justification: hand over to CSS (see .tex-ragged).
+  if (charsPerLine(raw, width) < MIN_MEASURE) {
+    ragged();
+    return;
+  }
+
+  const measure = (w) => ctx.measureText(fromSentinel(w)).width;
+  const spaceW = ctx.measureText(" ").width;
+  const text = toSentinel(original.replace(/[ \t\r\n]+/g, " ").trim());
+
+  const solve = (hyph, nudge) => {
+    try {
+      const items = api.layoutItemsFromString(text, measure, hyph);
+      let breaks = api.breakLines(items, width * (1 + nudge));
+      if (breaks[0] === 0) breaks = breaks.slice(1);
+      const lines = toLines(items, breaks);
+      const stats = spacingStats(lines, width, spaceW);
+      const hyphens = lines.filter((l) => l.hyphenated).length;
+      return {
+        lines,
+        hyphens,
+        nudge,
+        withHyph: Boolean(hyph),
+        ...stats,
+        score: stats.penalty + hyphens * HYPHEN_COST,
+      };
+    } catch {
+      return null; // breaker found no solution for this candidate
+    }
+  };
+
+  // Try every combination of (hyphenation on/off) x (width nudge) and keep the
+  // layout with the best score. Ties keep the earlier, more conservative one.
+  const candidates = [];
+  for (const nudge of WIDTH_NUDGES) {
+    candidates.push(solve(hyphenate, nudge));
+    if (hyphenate) candidates.push(solve(undefined, nudge));
+  }
+  const valid = candidates.filter(Boolean);
+  if (!valid.length) throw new Error("No layout found");
+  const best = valid.reduce((a, b) => (b.score < a.score ? b : a));
+
+  if (DEBUG) {
+    console.log(
+      p.className,
+      "chars/line:", Math.round(charsPerLine(raw, width)),
+      "| hyphens:", best.hyphens,
+      "| spacing min/max:", best.min.toFixed(2), best.max.toFixed(2),
+      "| nudge:", best.nudge,
+      "| hyphenation:", best.withHyph,
+      "| score:", best.score.toFixed(2),
+    );
+  }
+
+  // Even the best justified layout is ugly: let CSS handle it.
+  if (
+    best.max > RAGGED_IF_LOOSER_THAN ||
+    best.min < -RAGGED_IF_TIGHTER_THAN
+  ) {
+    ragged();
+    return;
+  }
+
+  p.classList.remove("tex-ragged");
 
   const frag = document.createDocumentFragment();
-  let start = 0;
-
-  breaks.forEach((bp, i) => {
-    const isLast = i === breaks.length - 1;
-    let line = items
-      .slice(start, bp)
-      .map((it) => it.text ?? "")
-      .join("");
-    if (
-      !isLast &&
-      items[bp].type === "penalty" &&
-      items[bp].flagged &&
-      !/[-\u2010\u2011\u2013\u2014]$/.test(line)
-    ) {
-      line += "-";
-    }
-    line = fromSentinel(line).replace(/ +$/, "");
-    start = bp + 1;
-
+  best.lines.forEach(({ text: line, last }) => {
     const span = document.createElement("span");
     span.className = "tex-line";
     span.textContent = line;
 
-    if (!isLast) {
+    if (!last) {
       const natural = ctx.measureText(line).width;
       const gaps = (line.match(/[ \u00A0]/g) || []).length;
       if (gaps) span.style.wordSpacing = `${(width - natural) / gaps}px`;
@@ -173,6 +293,7 @@ export async function justify(root, lang, selector = "p") {
       } catch (err) {
         console.warn("Line breaking failed for a paragraph", err);
         if (p.dataset.texText) p.textContent = p.dataset.texText;
+        p.classList.add("tex-ragged");
       }
     });
   };
