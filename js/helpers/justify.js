@@ -8,19 +8,37 @@ const patternLoaders = {
 };
 
 // Set to true to log the chosen layout of every paragraph.
-const DEBUG = false;
+const DEBUG = true;
 
 // Below this many characters per line, ragged-right beats justified.
 const MIN_MEASURE = 45;
 
+// false = every paragraph stays justified, whatever the measure or gap size.
+// true  = enable the two ragged-right fallbacks (MIN_MEASURE and the
+//         RAGGED_IF_* limits below).
+const RAGGED_FALLBACK = false;
+
+// Largest squeeze allowed for a line, as a fraction of a normal space
+// (0.35 = gaps at most 35% tighter). Candidates beyond it are only used
+// when no candidate stays inside the limit.
+const MAX_SQUEEZE = 0.5;
+
 // "Reduce spacing" lever: break the paragraph as if the column were this much
 // wider, then squeeze each line to the real width with negative word-spacing.
 // Fractions of the real width; 0 = normal layout.
-const WIDTH_NUDGES = [0, 0.005, 0.01, 0.015];
+const WIDTH_NUDGES = [0, 0.01, 0.02];
+
+// Hyphenation variants tried per paragraph: [minWord, minLeft, minRight].
+// A stricter variant offers fewer break points, which can lead to layouts
+// with fewer hyphens. Unhyphenated is always tried as well.
+const HYPHEN_VARIANTS = [
+  [6, 3, 3],
+  [9, 4, 4],
+];
 
 // Scoring (units: squared gap deviation, where 1 = gap off by one normal space).
-const HYPHEN_COST = 0.3; // one hyphen costs as much as a line off by ~0.55 spaces
-const TIGHT_WEIGHT = 2; // squeezed gaps look worse than loose ones of equal size
+const HYPHEN_COST = 0.8; // one hyphen costs as much as a line off by ~0.9 spaces
+const TIGHT_WEIGHT = 1.5; // squeezed gaps look slightly worse than loose ones
 const OVERFLOW_PENALTY = 25; // a line that does not fit the column
 
 // If even the best layout has a gap this far from normal, give up on
@@ -135,7 +153,7 @@ function spacingStats(lines, width, spaceW) {
   return { min, max, penalty };
 }
 
-function layoutParagraph(p, api, hyphenate, glueText) {
+function layoutParagraph(p, api, hyphenators, glueText) {
   const raw = (p.dataset.texText ??= p.textContent);
   const original = glueText(raw);
 
@@ -150,7 +168,7 @@ function layoutParagraph(p, api, hyphenate, glueText) {
   };
 
   // Too narrow for good justification: hand over to CSS (see .tex-ragged).
-  if (charsPerLine(raw, width) < MIN_MEASURE) {
+  if (RAGGED_FALLBACK && charsPerLine(raw, width) < MIN_MEASURE) {
     ragged();
     return;
   }
@@ -183,13 +201,15 @@ function layoutParagraph(p, api, hyphenate, glueText) {
   // Try every combination of (hyphenation on/off) x (width nudge) and keep the
   // layout with the best score. Ties keep the earlier, more conservative one.
   const candidates = [];
+  const variants = [...hyphenators, undefined]; // undefined = no hyphenation
   for (const nudge of WIDTH_NUDGES) {
-    candidates.push(solve(hyphenate, nudge));
-    if (hyphenate) candidates.push(solve(undefined, nudge));
+    for (const h of variants) candidates.push(solve(h, nudge));
   }
   const valid = candidates.filter(Boolean);
   if (!valid.length) throw new Error("No layout found");
-  const best = valid.reduce((a, b) => (b.score < a.score ? b : a));
+  const withinSqueeze = valid.filter((c) => c.min >= -MAX_SQUEEZE);
+  const pool = withinSqueeze.length ? withinSqueeze : valid;
+  const best = pool.reduce((a, b) => (b.score < a.score ? b : a));
 
   if (DEBUG) {
     console.log(
@@ -200,13 +220,26 @@ function layoutParagraph(p, api, hyphenate, glueText) {
       "| nudge:", best.nudge,
       "| hyphenation:", best.withHyph,
       "| score:", best.score.toFixed(2),
+      "| lines:", best.lines.length,
+    );
+    console.table(
+      valid.map((c) => ({
+        nudge: c.nudge,
+        hyphenation: c.withHyph,
+        lines: c.lines.length,
+        hyphens: c.hyphens,
+        min: +c.min.toFixed(2),
+        max: +c.max.toFixed(2),
+        score: +c.score.toFixed(2),
+        firstLine: c.lines[0].text,
+      })),
     );
   }
 
   // Even the best justified layout is ugly: let CSS handle it.
   if (
-    best.max > RAGGED_IF_LOOSER_THAN ||
-    best.min < -RAGGED_IF_TIGHTER_THAN
+    RAGGED_FALLBACK &&
+    (best.max > RAGGED_IF_LOOSER_THAN || best.min < -RAGGED_IF_TIGHTER_THAN)
   ) {
     ragged();
     return;
@@ -257,11 +290,12 @@ export async function justify(root, lang, selector = "p") {
     return;
   }
 
-  let hyphenate; // undefined = no hyphenation
+  let hyphenators = []; // empty = no hyphenation available
   try {
     const mod = await patternLoaders[locale]();
-    hyphenate = protectGlued(
-      limitHyphenation(api.createHyphenator(mod.default ?? mod), 6, 3, 3),
+    const base = api.createHyphenator(mod.default ?? mod);
+    hyphenators = HYPHEN_VARIANTS.map(([minWord, minLeft, minRight]) =>
+      protectGlued(limitHyphenation(base, minWord, minLeft, minRight)),
     );
   } catch (err) {
     console.warn(
@@ -289,7 +323,7 @@ export async function justify(root, lang, selector = "p") {
   const run = () => {
     root.querySelectorAll(selector).forEach((p) => {
       try {
-        layoutParagraph(p, api, hyphenate, glueText);
+        layoutParagraph(p, api, hyphenators, glueText);
       } catch (err) {
         console.warn("Line breaking failed for a paragraph", err);
         if (p.dataset.texText) p.textContent = p.dataset.texText;
